@@ -1,0 +1,7 @@
+{
+    "compilerOptions": {
+        "allowJs": true,        // 프로젝트 내에 JS 허용 여부
+        "checkJs": true,        // JS파일의 문법 확인
+        "noImplicitAny": true   // 모든 변수에 대해 타입을 설정해야 함
+    }
+}
