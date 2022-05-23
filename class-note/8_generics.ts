@@ -8,8 +8,10 @@ logGeneric<string>('hi');   // function logTextGeneric<string>(text: string): st
 logGeneric(10);
 logGeneric(false);
 
-// 기존 타입 정의 방식과 제네릭의 차이점
-// 1. 함수 중복 선언의 단점
+// #######################################################################
+// 1. 함수 중복 선언의 단점 극복
+// #######################################################################
+
 //  - 기존 타입 정의의 경우 동일한 프로세스에 다른 타입을 받고 싶으면 함수를 여러개 선언해야 함
 
 function logText(text: string) {
@@ -27,7 +29,10 @@ function logNum(num: number) {
 logText('hi');
 logNum(10);
 
-// 2. Union Type을 이용한 선언 방식의 문제점
+
+// #######################################################################
+// 2. Union Type을 이용한 선언 방식의 문제점 극복
+// #######################################################################
 //  - 함수 내부에서 Union Type으로 선언한 타입들이 모두 공통으로 사용할 수 있는 api만 호출 가능
 //  - ㅇ
 function logUnion(text: string | number){
@@ -51,8 +56,9 @@ const str = logFinal<string>('a-b-c');
 str.split('-');
 const bool = logFinal<boolean>(true);
 
-
+// #######################################################################
 // 3. Generic을 이용한 타입 정의
+// #######################################################################
 interface DropDownItem<T> {
     value: T;
     selected: boolean;
@@ -62,8 +68,10 @@ interface DropDownItem<T> {
 const obj: DropDownItem<number> = { value: 111, selected: false};
 
 
-// 4. Generic 타입 제한
 
+// #######################################################################
+// 4. Generic 타입 제한
+// #######################################################################
 // 4-1) 힌트 주기
 function logArrLength<T>(arr: T[]): T[] {
 
@@ -80,15 +88,31 @@ function logArrLength<T>(arr: T[]): T[] {
 
 logArrLength<number>([1, 2, 5, 76]);
 
-// 4-2) 정의된 타입 이용하기
+// 4-2) 정의된 타입 이용하기 (상속)
 interface LengthType {
     length: number;
 }
  
-function logTextLength<T>(text: T): T {
+function logTextLength<T extends LengthType>(text: T): T {
+    text.length;
     return text;
 }
 
+logTextLength('aaa');
+// logTextLength(10); // number 타입에는 length 속성이 없음 => 에러 발생
 
+// 4-3) keyof를 이용한 타입 제한
+interface ShoppingItem {
+    name: string;
+    price: number;
+    stock: number;
+}
+
+// ShoppingItem 타입의 key 값들만 인자로 받음
+function getShoppingItemOption<T extends keyof ShoppingItem>(itemOption: T): T {
+    return itemOption;
+}
+
+getShoppingItemOption("name");
 
 
