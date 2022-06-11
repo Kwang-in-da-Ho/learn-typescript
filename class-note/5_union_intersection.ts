@@ -10,6 +10,9 @@ logMessage(false);
 
 // Union Type
 var msg: string | number | boolean;
+msg = 'aaa';
+msg = 111;
+msg = false;
 
 function unionTypeLogMessage(value: string | number){
     if(typeof value === 'number'){
@@ -30,6 +33,7 @@ function unionTypeLogMessage(value: string | number){
 unionTypeLogMessage('hello');
 unionTypeLogMessage(100);
 // unionTypeLogMessage(false); // string, number 타입 외의 인자는 에러 발생
+// unionTypeLogMessage(msg); // 허용 타입 외의 타입도 허용하는 변수이기 때문에 에러 발생
 
 // Union Type의 특징 2
 interface Developer {

@@ -115,4 +115,7 @@ function getShoppingItemOption<T extends keyof ShoppingItem>(itemOption: T): T {
 
 getShoppingItemOption("name");
 
+// 제한에 걸림
+// getShoppingItemOption("aaa");
+
 
